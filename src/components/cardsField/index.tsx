@@ -1,7 +1,8 @@
 import React,{Fragment,useState,useEffect} from 'react'
 import styles from './cardsField.module.scss'
 import TaskCard from '../taskCadr/index'
-//import idGen from 'uuid';
+import {useSelector} from 'react-redux'
+import {selectTaskList} from '../../servises/store/reducers/taskListReducer'
 
 const CardsField:React.FC =()=>{
 
@@ -14,24 +15,11 @@ const CardsField:React.FC =()=>{
     },
     ]);
 
-    let taskList= [
-            {id:1,
-            startDate:2,
-            endDate:3,
-            task:'To do something',
-            status:'Active',
-            },
-            {id:2,
-            startDate:2,
-            endDate:3,
-            task:'To do something',
-            status:'On hold',
-            },      
-        ];
+    const taskList = useSelector(selectTaskList);
     
     useEffect(()=>{
         setTaks(taskList);
-    },[])
+    },[task])
 
     const showCards=task.map((item:any,index:number)=>{
         return(
