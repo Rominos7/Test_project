@@ -5,7 +5,7 @@ import CardsField from '../src/components/cardsField/index'
 const App:React.FC = () => {
   return (
     <>
-<CardsField/>
+      <CardsField/>
     </>
   );
 }

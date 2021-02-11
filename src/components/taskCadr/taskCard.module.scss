@@ -1,3 +1,36 @@
-p{
-    color:blue;
+
+.cardBox{
+    border: solid 1px black;
+    .upperSection{
+        padding: 0.375rem;
+        display: flex;
+        justify-content: space-between;
+        .statusField{  
+            .statusIndicator{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .statusMark{
+                    width: 10px;
+                    height: 10px;
+                    background-color: var(--circleColor);//green;
+                    border-radius: 50%; 
+                }
+            }
+            .statusSelect{
+                font-size: 12px;
+            }
+        }   
+    }
+    .middleSection{
+        padding: 0.375rem;
+        display: flex;
+        justify-content: space-between;
+
+    }
+    .lowerSection{
+        padding: 0.375rem;
+        display: flex;
+        justify-content: space-between;
+    }
 }
