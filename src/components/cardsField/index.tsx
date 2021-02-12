@@ -6,6 +6,7 @@ import {selectTaskList} from '../../servises/store/reducers/taskListReducer'
 import {Link} from 'react-router-dom'
 import {useSetListData} from '../../servises/useSetListData';
 
+
 const CardsField:React.FC =()=>{
 
     const [task,setTaks] = useState([{
@@ -19,13 +20,12 @@ const CardsField:React.FC =()=>{
     const [update,setUpdate] = useState(false);
 
     useSetListData();
-    const taskList = useSelector(selectTaskList); 
-    
-    useEffect(()=>{
-        setTaks(taskList);
-    })
+    const taskList = useSelector(selectTaskList);
 
-    console.log(update);
+    useEffect(()=>{
+     return setTaks(taskList);
+    })
+    
     const showCards=task.map((item:any,index:number)=>{
         return(
             <TaskCard
@@ -36,7 +36,6 @@ const CardsField:React.FC =()=>{
                endDate={item.endDate}
                task={item.task}
                status={item.status}
-               setUpdate={setUpdate} 
             />
         )
     })

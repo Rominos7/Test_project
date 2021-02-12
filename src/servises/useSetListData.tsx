@@ -5,7 +5,6 @@ import {requestData} from './requestData'
 
 export const useSetListData = ()=>{
     const dispatch = useDispatch();
-    const [isrRequesting, setRequesting] = useState(false); 
 
     useEffect(()=>{
         // here we will request our data
