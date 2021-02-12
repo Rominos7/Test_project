@@ -89,7 +89,7 @@ const AddEditForm:React.FC =()=>{
     return(
         <>
             <form className={styles.mainEditField} onSubmit={sendNewTask} >
-                <Link to='/'>To main page</Link>
+            <button onClick={()=>{history.push('/')}}>To main page</button>
                 <section className={styles.upperSection}>
                     <div>
                         <label>ID of task</label>
@@ -137,4 +137,4 @@ const AddEditForm:React.FC =()=>{
     )
 }
 
-export default AddEditForm
+export default AddEditForm;

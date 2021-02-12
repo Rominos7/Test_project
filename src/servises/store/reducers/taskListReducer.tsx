@@ -19,16 +19,10 @@ const initialState ={
     startDate:2,
     endDate:3,
     task:'Have been done',
-    status:'Active',
-    },
-    {id:'2',
-    startDate:2,
-    endDate:3,
-    task:'To do something',
-    status:'On hold',
+    status:'Solved',
     },  
   ],
-  listOfCodeNames:['Name1','Name2'],
+  listOfCodeNames:['Name1'],
 } 
 
 export const taskSlice = createSlice({
