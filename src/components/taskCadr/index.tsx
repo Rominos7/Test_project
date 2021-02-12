@@ -1,5 +1,9 @@
-import React,{Fragment, useEffect} from 'react'
+import React,{Fragment, useEffect,useState} from 'react'
 import styles from './taskCard.module.scss'
+import {requestData} from '../../servises/requestData'
+import { useHistory } from 'react-router-dom';
+import {useSelector} from 'react-redux'
+import {selectTaskNames} from '../../servises/store/reducers/taskListReducer'
 
 type Props ={
     id:number,
@@ -8,11 +12,31 @@ type Props ={
     endDate:number,
     task:string,
     status:string,
+    setUpdate:Function,
 }
 
 
-const TaskCard:React.FC<Props> =({id,numOfElement,startDate,endDate,task,status})=>{
+const TaskCard:React.FC<Props> =({id,numOfElement,startDate,endDate,task,status,setUpdate})=>{
 
+    //const [update,setUpdate] = useState(false);
+
+    const history = useHistory();
+    const onEdit = ()=>{
+
+    }
+
+    const listOfCodeNames = useSelector(selectTaskNames); 
+    const onDelete = () =>{
+        setUpdate(false);
+        const URL=`https://test-db-task-list-default-rtdb.firebaseio.com/taskList/${listOfCodeNames[numOfElement]}.json?x-http-method-override=DELETE`;
+        requestData(URL,'DELETE')
+        .then((res:any)=>{ 
+            setUpdate(true);
+        })
+        .catch((err)=>{console.log(err)})
+        
+    }
+    
     //set up initiall color of indication
     document.body.style.setProperty('--circleColor', `green`);
     
@@ -28,7 +52,6 @@ const TaskCard:React.FC<Props> =({id,numOfElement,startDate,endDate,task,status}
         }else if(selectors[numOfElement].value==='Solved'){
             circle[numOfElement].style.backgroundColor = 'green';
         }
-
     }
     
     useEffect(()=>{
@@ -73,8 +96,8 @@ const TaskCard:React.FC<Props> =({id,numOfElement,startDate,endDate,task,status}
                 </div>
             </section>
             <section>
-                <button>Delete task</button>
-                <button>Edit task</button>
+                <button onClick={()=>{onDelete()}}>Delete task</button>
+                <button onClick={onEdit} >Edit task</button>
             </section>
         </div>
         </>

@@ -1,0 +1,50 @@
+
+.mainEditField{
+    border: solid 1px black;
+    width: 30rem;
+    margin:0 auto;
+    .upperSection{
+        padding: 0.375rem;
+        display: flex;
+        justify-content: space-between;
+        #idField{
+            font-size: 12px;
+        }
+        .statusField{  
+            .statusIndicator{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .statusMark{
+                    width: 10px;
+                    height: 10px;
+                    background-color: green;
+                    border-radius: 50%; 
+                } 
+            }
+            .statusSelect{
+                font-size: 12px;
+            }
+        }   
+    }
+    .middleSection{
+        padding: 0.375rem;
+        display: flex;
+        align-items: center;
+        #taskField{
+            font-size: 12px;
+        }
+    }
+    .lowerSection{
+        padding: 0.375rem;
+        display: flex;
+        justify-content: space-between;
+        #startDateField{
+            font-size: 12px;
+        }
+        #finishDateField{
+            font-size: 12px;
+        }
+    }
+}
+
