@@ -53,10 +53,7 @@ const TaskCard:React.FC<Props> =({id,numOfElement,startDate,endDate,task,status}
         })      
         .catch((err)=>{console.log(err)})
     }
-    
-    //set up initiall color of indication
-    //document.body.style.setProperty('--circleColor', `green`);
-    
+        
     const changeColor =()=>{
         let status = document.querySelectorAll<HTMLParagraphElement>(`.${styles.statusSelect}`);
         let circle = document.querySelectorAll<HTMLDivElement>(`.${styles.statusMark}`);

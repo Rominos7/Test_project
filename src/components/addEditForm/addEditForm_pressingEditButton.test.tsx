@@ -7,6 +7,8 @@ import AddEditForm from '.'
 import {Provider} from 'react-redux'
 import {store} from '../../servises/store/store'
 
+jest.clearAllMocks();
+
 let container:any = null;
 const mockHistory = jest.fn();
 jest.mock("react-router-dom", () => ({
@@ -30,7 +32,7 @@ jest.mock("react-router-dom", () => ({
 const mockJsonPromise = Promise.resolve(['Successful']);
 const mockFetchPromise = Promise.resolve({
   json: () => mockJsonPromise,
-  status: 200,
+  //status: 200,
 });
 global.fetch = jest.fn().mockImplementation(() => mockFetchPromise);
 
@@ -47,7 +49,7 @@ afterEach(() => {
 });
 
 
-describe('ckeck if component is rendering succsesfully and we can Edit taskCard',()=>{
+describe('check if component is rendering succsesfully and we can Edit taskCard',()=>{
   
     it("Render and pressing Edit button", async () => {  
     await act( async() => {
@@ -67,7 +69,7 @@ describe('ckeck if component is rendering succsesfully and we can Edit taskCard'
     fireEvent.click(toMainPage);
     expect(mockHistory).toHaveBeenCalledWith('/');
     
-    //click on button Eddit
+    //click on button Edit
     fireEvent.click(toEdit);
     //send request;
     expect(global.fetch).toHaveBeenCalledWith('https://test-db-task-list-default-rtdb.firebaseio.com/taskList/undefined.json?x-http-method-override=PUT',{
