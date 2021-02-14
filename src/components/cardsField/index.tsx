@@ -1,9 +1,9 @@
-import React,{Fragment,useState,useEffect} from 'react'
+import React,{useState,useEffect} from 'react'
 import styles from './cardsField.module.scss'
 import TaskCard from '../taskCadr/index'
 import {useSelector} from 'react-redux'
 import {selectTaskList} from '../../servises/store/reducers/taskListReducer'
-import {Link} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 import {useSetListData} from '../../servises/useSetListData';
 
 
@@ -11,13 +11,14 @@ const CardsField:React.FC =()=>{
 
     const [task,setTaks] = useState([{
         id:'',
-        startDate:0,
-        endDate:1,
+        startDate:'0',
+        endDate:'1',
         task:'',
         status:'',
     },
     ]);
-    const [update,setUpdate] = useState(false);
+
+    const history = useHistory();
 
     useSetListData();
     const taskList = useSelector(selectTaskList);
@@ -44,7 +45,7 @@ const CardsField:React.FC =()=>{
         <>
         <div className={styles.cardContainer}>
             <p className={styles.title}>Current tasks</p>
-            <Link to='/form'>Add new task</Link>
+            <button className={styles.addButton} onClick={()=>{ history.push('/form')}}>Add new task</button>
             {showCards}
         </div>
         </>

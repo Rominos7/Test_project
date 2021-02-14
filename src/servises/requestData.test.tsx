@@ -1,13 +1,13 @@
-import { rejects } from 'assert';
-import { resolve } from 'path';
 import { requestData } from './requestData'
 
+// mock for global fetch (this mock also not working properly. If be more specific - mockImplementation does not 'fire')
 const mockJsonPromise = Promise.resolve('received data');
 const mockFetchPromise = Promise.resolve({
     status: 200,
     json: () => mockJsonPromise,
 });
 global.fetch = jest.fn().mockImplementation(() => mockFetchPromise);
+
 
 it('method GET',()=>{
     requestData('URL','GET');

@@ -9,6 +9,7 @@ import { act } from "react-dom/test-utils";
 import { unmountComponentAtNode } from "react-dom";
 import ReactDOM from "react-dom";
 
+// mock for global fetch (this mock also not working properly. If be more specific - mockImplementation does not 'fire')
 const mockJsonPromise = Promise.resolve(['Success_data']);
 const mockFetchPromise = Promise.resolve({
   json:() => mockJsonPromise,

@@ -18,7 +18,7 @@ export async function requestData<TData extends object>(
     });
 
     //if we do not receive any of data. Use this for mocking in tests(if mocking does not succsesfull)
-    if(response!==null){
+    if(response===undefined){
         console.log('resopnse received',response);
     }
 

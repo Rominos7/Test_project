@@ -8,10 +8,10 @@ import {setTaskList,setListOfCodeNames} from '../../servises/store/reducers/task
 import {useDispatch} from 'react-redux'
 
 type Props ={
-    id:number,
+    id:string,
     numOfElement:number,
-    startDate:number,
-    endDate:number,
+    startDate:string,
+    endDate:string,
     task:string,
     status:string,
 }
@@ -76,13 +76,13 @@ const TaskCard:React.FC<Props> =({id,numOfElement,startDate,endDate,task,status}
         <>
         <div className={styles.cardBox}>
             <section className={styles.upperSection}>
-                <div>
-                    <p>ID of taks</p>
-                    {id}
+                <div className = {styles.idField}>
+                    <p>ID of task</p>
+                    <p>{id}</p>
                 </div>
                 <div className={styles.statusField}>
                     <div className={styles.statusIndicator}>
-                        <p>Status</p>
+                        <p className={styles.statusLabel}>Status</p>
                         <div className={styles.statusMark}></div>
                     </div>
                     <p className={styles.statusSelect}>{status}</p>
@@ -90,23 +90,23 @@ const TaskCard:React.FC<Props> =({id,numOfElement,startDate,endDate,task,status}
             </section>
             <section className={styles.middleSection}>
                 <div>
-                    <p>Taks</p>
-                    {task}
+                    <p>Task</p>
+                    <p>{task}</p>
                 </div>
             </section>
             <section className={styles.lowerSection}>
-                <div>
+                <div className={styles.startDate}>
                     <p>Start date</p>
-                    {startDate}
+                    <p>{startDate}</p>
                 </div>
-                <div>
+                <div className={styles.endDate}>
                     <p>End date</p>
-                    {endDate}
+                    <p>{endDate}</p>
                 </div>
             </section>
-            <section>
-                <button onClick={()=>{onDelete()}}>Delete task</button>
-                <button onClick={()=>{onEdit()}} >Edit task</button>
+            <section className = {styles.buttons}>
+                <button className={styles.buttonsStyle} onClick={()=>{onDelete()}}>Delete task</button>
+                <button className={styles.buttonsStyle} onClick={()=>{onEdit()}} >Edit task</button>
             </section>
         </div>
         </>

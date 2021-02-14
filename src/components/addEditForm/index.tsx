@@ -89,18 +89,19 @@ const AddEditForm:React.FC =()=>{
     return(
         <>
             <form className={styles.mainEditField} onSubmit={sendNewTask} >
-            <button onClick={()=>{history.push('/')}}>To main page</button>
                 <section className={styles.upperSection}>
-                    <div>
-                        <label>ID of task</label>
+                    <div className={styles.idSection}>
+                        <label htmlFor={`${styles.idField}`}>ID of task</label>
+
                         {location.state===undefined?
-                        <input placeholder ='enter id of task' id={styles.idField} type={'text'}></input>:
+                        <input placeholder ='endter task id' id={styles.idField} type={'text'}></input>:
                         <input id={styles.idField} defaultValue={taskPlaceholder.id} type={'text'}></input>
                         }
+
                     </div>
                     <div className={styles.statusField}>
                         <div className={styles.statusIndicator}>
-                            <label>Status</label>
+                            <label htmlFor={`statusCheck`}>Status</label>
                             <div className={styles.statusMark}></div>
                         </div> 
                         <select name='statusCheck' defaultValue={taskPlaceholder.status} className={styles.statusSelect} onChange={()=>{changeColor()}}>
@@ -112,26 +113,30 @@ const AddEditForm:React.FC =()=>{
                     </div>
                 </section>
                 <section className={styles.middleSection}>
-                    <label>Task</label>
-                    
-                    {location.state===undefined?
-                    <input placeholder='enter the name of the task' id={styles.taskField} type={'text'} ></input>:
-                    <input id={styles.taskField} type={'text'} defaultValue={taskPlaceholder.task}></input>}
+                    <div>
+                        <label htmlFor={`${styles.taskField}`}>Task</label>
 
+                        {location.state===undefined?
+                        <input placeholder='enter task name' id={styles.taskField} type={'text'} ></input>:
+                        <input id={styles.taskField} type={'text'} defaultValue={taskPlaceholder.task}></input>}
+                    </div>
                 </section>
                 <section className={styles.lowerSection}>
-                    <div>
-                        <label>Start date</label>
+                    <div className={styles.startDate}>
+                        <label htmlFor={`${styles.startDateField}`}>Start date</label>
                         <input type={'date'} id={styles.startDateField} defaultValue={taskPlaceholder.startDate}></input>
                     </div>
-                    <div>
-                        <label>Finish date</label>
+                    <div className={styles.endDate}>
+                        <label htmlFor={`${styles.finishDateField}`}>Finish date</label>
                         <input type={'date'} id={styles.finishDateField} defaultValue={taskPlaceholder.endDate}></input>
                     </div>
                 </section>
+                        
                 {location.state===undefined?
-                <button type='submit'>Add task</button>:
-                <button type='submit'>Edit task</button>}               
+                <button className={`${styles.button} ${styles.buttonAdd}`} type='submit'>Add task</button>:
+                <button className={`${styles.button} ${styles.buttonEdit}`} type='submit'>Edit task</button>}
+                <button className={styles.linkMainPage} onClick={()=>{history.push('/')}}>To main page</button>
+
             </form> 
         </>
     )

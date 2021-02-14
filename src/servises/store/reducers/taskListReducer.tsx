@@ -3,8 +3,8 @@ import { RootState } from '../store';
 
 interface taskList {
   id: string;
-  startDate: number;
-  endDate: number;
+  startDate: string;
+  endDate: string;
   task: string;
   status: string;
 };
@@ -16,8 +16,8 @@ interface FieldNames{
 const initialState ={
   listOfData:[
     {id:'1',
-    startDate:2,
-    endDate:3,
+    startDate:'2',
+    endDate:'3',
     task:'Have been done',
     status:'Solved',
     },  

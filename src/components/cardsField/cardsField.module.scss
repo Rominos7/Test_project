@@ -2,8 +2,18 @@
 .cardContainer{
     width: 30rem;
     margin:0 auto;
-    border:solid 1px gray;
     .title{
         text-align: center;
+        font-size:30px;
+    }
+    .addButton{
+        border:none;
+        padding:6px;
+        border-radius: 6px;
+        cursor:pointer;
+        margin-bottom: 10px;
+        background-color: #4575cc;
+        color:white;
+        font-weight:600;
     }
 }

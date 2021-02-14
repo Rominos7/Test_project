@@ -21,7 +21,7 @@ jest.mock("react-router-dom", () => ({
   }),
 }));
 
-// mock for global fetch
+// mock for global fetch (this mock also not working properly. If be more specific - mockImplementation does not 'fire')
 const mockJsonPromise = Promise.resolve(['Successful']);
 const mockFetchPromise = Promise.resolve({
   json: () => mockJsonPromise,
@@ -55,8 +55,8 @@ describe('check if component is rendering succsesfully and we can Add taskCard',
     });
   
     let buttons = container.querySelectorAll('button');
-    let toMainPage = buttons[0];
-    let toAdd = buttons[1];
+    let toMainPage = buttons[1];
+    let toAdd = buttons[0];
     
     //click on button to main page
     fireEvent.click(toMainPage);
