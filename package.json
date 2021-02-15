@@ -58,5 +58,11 @@
     "reportPath": "coverage/reports",
     "reportFile": "test-report.xml",
     "indent": 4
+  },
+  "jest":{
+    "collectCoverageFrom":[
+      "scr/**/*.{ts,tsx}"
+    ]
   }
+
 }
