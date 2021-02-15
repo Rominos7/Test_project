@@ -1,0 +1,40 @@
+properties([disableConcurrentBuilds()])
+
+pipeline{
+    agent {
+        label 'master'
+        options{
+            buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+            timestamps()
+        }
+    }
+    stages{
+        stage('Create docker image')
+        {
+            steps{
+                echo 'Createing docker image....'
+                dir('.'){
+                    sh 'docker build -t rominos71/taksManager -f Dockerfile .'
+                }
+            }
+        }
+        stage('Stoping previous image'){
+            step{
+                echo 'Stoping container....'
+                sh 'docker stop taskManager'
+            }
+        }
+        stage('Removing previous image'){
+            step{
+                echo 'Removing container'
+                sh 'docker rm taskManager'
+            }
+        }
+        stage('Launching current build '){
+            step{
+                echo 'Deployment'
+                sh 'docker run -d --restart=always --name taskManager -p 80:3000 rominos71/taskManager'
+            }
+        }
+    }
+}
