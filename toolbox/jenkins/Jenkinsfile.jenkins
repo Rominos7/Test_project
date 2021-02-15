@@ -33,7 +33,7 @@ pipeline{
         stage('Launching current build '){
             steps{
                 echo 'Deployment'
-                sh 'docker run -d --restart=always --name taskmanager -p 80:3000 rominos71/taskmanager'
+                sh 'docker run -itd --restart=always --name taskmanager -p 80:3000 rominos71/taskmanager'
             }
         }
     }
