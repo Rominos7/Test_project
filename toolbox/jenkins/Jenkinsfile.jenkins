@@ -14,7 +14,7 @@ pipeline{
             steps{
                 echo 'Createing docker image....'
                 dir('.'){
-                    sh 'docker build -t rominos71/taksmanager -f Dockerfile .'
+                    sh 'docker build -t rominos71/taskmanager -f Dockerfile .'
                 }
             }
         }
