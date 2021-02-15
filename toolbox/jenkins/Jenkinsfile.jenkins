@@ -19,19 +19,19 @@ pipeline{
             }
         }
         stage('Stoping previous image'){
-            step{
+            steps{
                 echo 'Stoping container....'
                 sh 'docker stop taskManager'
             }
         }
         stage('Removing previous image'){
-            step{
+            steps{
                 echo 'Removing container'
                 sh 'docker rm taskManager'
             }
         }
         stage('Launching current build '){
-            step{
+            steps{
                 echo 'Deployment'
                 sh 'docker run -d --restart=always --name taskManager -p 80:3000 rominos71/taskManager'
             }
