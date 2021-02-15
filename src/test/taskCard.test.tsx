@@ -4,8 +4,8 @@ import { fireEvent } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import ReactDOM from "react-dom";
 import {Provider} from 'react-redux'
-import {store} from '../../servises/store/store'
-import TaskCard from './index'
+import {store} from '../servises/store/store'
+import TaskCard from '../components/taskCadr/index'
 
 let container:any = null;
 

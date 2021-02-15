@@ -3,21 +3,28 @@ import { unmountComponentAtNode } from "react-dom";
 import { fireEvent } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import ReactDOM from "react-dom";
-import AddEditForm from '.'
+import AddEditForm from '../components/addEditForm'
 import {Provider} from 'react-redux'
-import {store} from '../../servises/store/store'
+import {store} from '../servises/store/store'
 
 jest.clearAllMocks();
 
 let container:any = null;
-
-//mock for history and location hooks
 const mockHistory = jest.fn();
 jest.mock("react-router-dom", () => ({
   useHistory: () => ({
     push: mockHistory,
   }),
   useLocation: () => ({
+    state:{
+      chosenTask:{
+        id: '2',
+            startDate: '',
+            endDate: '',
+            task: 'something',
+            status: 'Solved',
+      }
+    }
   }),
 }));
 
@@ -42,9 +49,9 @@ afterEach(() => {
 });
 
 
-describe('check if component is rendering succsesfully and we can Add taskCard',()=>{
+describe('check if component is rendering succsesfully and we can Edit taskCard',()=>{
   
-  it("Render and pressing Add button", async () => {
+    it("Render and pressing Edit button", async () => {  
     await act( async() => {
       ReactDOM.render(
               <Provider store={store}>
@@ -56,29 +63,28 @@ describe('check if component is rendering succsesfully and we can Add taskCard',
   
     let buttons = container.querySelectorAll('button');
     let toMainPage = buttons[1];
-    let toAdd = buttons[0];
+    let toEdit = buttons[0];
     
     //click on button to main page
     fireEvent.click(toMainPage);
     expect(mockHistory).toHaveBeenCalledWith('/');
     
-    //click on button Add
-    fireEvent.click(toAdd);
+    //click on button Edit
+    fireEvent.click(toEdit);
     //send request;
-    expect(global.fetch).toHaveBeenCalledWith('https://test-db-task-list-default-rtdb.firebaseio.com/taskList.json',{
+    expect(global.fetch).toHaveBeenCalledWith('https://test-db-task-list-default-rtdb.firebaseio.com/taskList/undefined.json?x-http-method-override=PUT',{
       body: JSON.stringify({ 
-        id:'',
+        id:'2',
         startDate:'',
         endDate:'',
-        task:'',
-        status:'Active'
+        task:'something',
+        status:'Solved'
       }),
       headers: { 'Content-Type': 'application/json' },
-      method: 'POST',
+      method: 'PUT',
     });
     //after successful request redirect us to main screen
     expect(mockHistory).toHaveBeenCalledWith('/');
-    
+  
   });
 });
-

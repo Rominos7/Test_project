@@ -1,4 +1,4 @@
-import { requestData } from './requestData'
+import { requestData } from '../servises/requestData'
 
 // mock for global fetch (this mock also not working properly. If be more specific - mockImplementation does not 'fire')
 const mockJsonPromise = Promise.resolve('received data');
