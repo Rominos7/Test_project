@@ -14,26 +14,26 @@ pipeline{
             steps{
                 echo 'Createing docker image....'
                 dir('.'){
-                    sh 'docker build -t rominos71/taksManager -f Dockerfile .'
+                    sh 'docker build -t rominos71/taksmanager -f Dockerfile .'
                 }
             }
         }
         stage('Stoping previous image'){
             steps{
                 echo 'Stoping container....'
-                sh 'docker stop taskManager'
+                sh 'docker stop taskmanager'
             }
         }
         stage('Removing previous image'){
             steps{
                 echo 'Removing container'
-                sh 'docker rm taskManager'
+                sh 'docker rm taskmanager'
             }
         }
         stage('Launching current build '){
             steps{
                 echo 'Deployment'
-                sh 'docker run -d --restart=always --name taskManager -p 80:3000 rominos71/taskManager'
+                sh 'docker run -d --restart=always --name taskmanager -p 80:3000 rominos71/taskmanager'
             }
         }
     }
