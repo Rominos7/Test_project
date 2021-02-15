@@ -11,6 +11,7 @@
     "@types/node": "^12.19.16",
     "@types/react": "^17.0.1",
     "@types/react-dom": "^17.0.0",
+    "jest-sonar-reporter": "^2.0.0",
     "node-sass": "^5.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -53,9 +54,9 @@
     "fetch-mock": "^9.11.0",
     "ts-jest": "^26.5.1"
   },
-  "jestSonar":{
+  "jestSonar": {
     "reportPath": "coverage/reports",
     "reportFile": "test-report.xml",
-    "indent":4
+    "indent": 4
   }
 }
