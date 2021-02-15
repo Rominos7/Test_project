@@ -21,6 +21,7 @@ const CardsField:React.FC =()=>{
     const history = useHistory();
 
     useSetListData();
+    
     const taskList = useSelector(selectTaskList);
 
     useEffect(()=>{
@@ -46,7 +47,7 @@ const CardsField:React.FC =()=>{
         <div className={styles.cardContainer}>
             <p className={styles.title}>Current tasks</p>
             <button className={styles.addButton} onClick={()=>{ history.push('/form')}}>Add new task</button>
-            {showCards}
+            {showCards}         
         </div>
         </>
     )

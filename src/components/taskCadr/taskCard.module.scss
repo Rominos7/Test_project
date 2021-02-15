@@ -36,7 +36,7 @@
                     height: 12px;
                     background-color: green;
                     border-radius: 50%;
-                    margin-right: 10px;
+                    margin-right: 20px;
                     margin-left: 10px;
                 }
             }
@@ -55,15 +55,25 @@
             margin-top:15px;
             margin-left:10px;
             font-weight: 600;
-
         }
-        p:nth-of-type(2){
-            margin:0rem;
-            margin-top:10px;
-            margin-left:10px;
-            text-decoration: underline;
+        .taskSection{          
+            p:nth-of-type(2){
+                margin:0rem;
+                margin-top:10px;
+                margin-left:10px;
+                text-decoration: underline;
+            }
         }
-
+        .daysSection{      
+            p:nth-of-type(1){
+                margin-right:10px;
+            }        
+            p:nth-of-type(2){
+                margin:0rem;
+                margin-top:10px;
+                margin-left:10px;
+            }
+        }
     }
     .lowerSection{
         display: flex;
@@ -102,17 +112,17 @@
         margin-top:15px;
         margin-bottom: 5px;
         button:nth-of-type(1){
-            margin-left:4px;
-            background-color: #ce5353;
-            color:white;
-            font-weight:600;
-        }
-        button:nth-of-type(2){
             margin-left:8px;
             background-color: #37ab60;
             color:white;
             font-weight:600;
         }
+        button:nth-of-type(2){
+            margin-left:4px;
+            background-color: #ce5353;
+            color:white;
+            font-weight:600;
+        } 
     }
 }
 

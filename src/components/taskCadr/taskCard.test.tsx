@@ -77,8 +77,8 @@ it('testing Task Card',()=>{
     let startDateFields = lowerSectionDivs[0].querySelectorAll('p');
     let endDateFields = lowerSectionDivs[1].querySelectorAll('p');
 
-    let deleteButton = buttons[0];
-    let editButton = buttons[1];
+    let deleteButton = buttons[1];
+    let editButton = buttons[0];
 
     // checks
     expect(idFields[1].innerHTML).toMatch('qwerty123456');

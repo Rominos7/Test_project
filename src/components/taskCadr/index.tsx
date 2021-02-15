@@ -23,7 +23,16 @@ const TaskCard:React.FC<Props> =({id,numOfElement,startDate,endDate,task,status}
     const dispatch = useDispatch();
     
     const listOfCodeNames = useSelector(selectTaskNames);
-    const taskList = useSelector(selectTaskList); 
+    const taskList = useSelector(selectTaskList);
+    
+    const daysLeft =()=>{
+        const startDateConverted = new Date(startDate);
+        const endDateConverted = new Date(endDate);
+
+        const diffInDays = (endDateConverted.getTime() - startDateConverted.getTime())/(1000*3600*24);
+
+        return diffInDays; 
+    }
 
     const updateData=()=>{
         let URL='https://test-db-task-list-default-rtdb.firebaseio.com/taskList.json';
@@ -68,7 +77,7 @@ const TaskCard:React.FC<Props> =({id,numOfElement,startDate,endDate,task,status}
         }
     }
     
-    useEffect(()=>{ 
+    useEffect(()=>{
         changeColor();  
     })
     
@@ -89,9 +98,13 @@ const TaskCard:React.FC<Props> =({id,numOfElement,startDate,endDate,task,status}
                 </div>
             </section>
             <section className={styles.middleSection}>
-                <div>
+                <div className={styles.taskSection}>
                     <p>Task</p>
                     <p>{task}</p>
+                </div>
+                <div className={styles.daysSection}>
+                    <p>Day(s) left</p>
+                    <p>{daysLeft()}</p>
                 </div>
             </section>
             <section className={styles.lowerSection}>
@@ -105,8 +118,8 @@ const TaskCard:React.FC<Props> =({id,numOfElement,startDate,endDate,task,status}
                 </div>
             </section>
             <section className = {styles.buttons}>
-                <button className={styles.buttonsStyle} onClick={()=>{onDelete()}}>Delete task</button>
                 <button className={styles.buttonsStyle} onClick={()=>{onEdit()}} >Edit task</button>
+                <button className={styles.buttonsStyle} onClick={()=>{onDelete()}}>Delete task</button>
             </section>
         </div>
         </>

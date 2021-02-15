@@ -30,12 +30,25 @@ const AddEditForm:React.FC =()=>{
     const sendNewTask=(event:any)=>{
         
         event.preventDefault();
+        //collection data from form;
         let idField = document.querySelector<HTMLInputElement>(`#${styles.idField}`);
         let status = document.querySelector<HTMLSelectElement>(`.${styles.statusSelect}`);
         let task = document.querySelector<HTMLInputElement>(`#${styles.taskField}`);
         let startDate = document.querySelector<HTMLInputElement>(`#${styles.startDateField}`);
-        let finishDate = document.querySelector<HTMLInputElement>(`#${styles.finishDateField}`);
+        let endDate = document.querySelector<HTMLInputElement>(`#${styles.endDateField}`);
         
+        //validation check
+        let startDateConverted = new Date((startDate?.value as string).toString());
+        let endDateConverted = new Date((endDate?.value as string).toString());
+        
+        let statDateTime = startDateConverted.getTime();
+        let endDateTime = endDateConverted.getTime();
+
+        if(statDateTime>endDateTime){
+            return alert('Wrong data format! Start date could not be higher that End date');
+        }
+        
+        // set up form for sending data to DB
         let URL='https://test-db-task-list-default-rtdb.firebaseio.com/taskList.json';
         let method = 'POST'
 
@@ -51,7 +64,7 @@ const AddEditForm:React.FC =()=>{
         requestData(URL,method,{
             id:idField?.value,
             startDate:startDate?.value,
-            endDate:finishDate?.value,
+            endDate:endDate?.value,
             task:task?.value,
             status:status?.value,
         })
@@ -127,16 +140,16 @@ const AddEditForm:React.FC =()=>{
                         <input type={'date'} id={styles.startDateField} defaultValue={taskPlaceholder.startDate}></input>
                     </div>
                     <div className={styles.endDate}>
-                        <label htmlFor={`${styles.finishDateField}`}>Finish date</label>
-                        <input type={'date'} id={styles.finishDateField} defaultValue={taskPlaceholder.endDate}></input>
+                        <label htmlFor={`${styles.endDateField}`}>End date</label>
+                        <input type={'date'} id={styles.endDateField} defaultValue={taskPlaceholder.endDate}></input>
                     </div>
                 </section>
                         
                 {location.state===undefined?
                 <button className={`${styles.button} ${styles.buttonAdd}`} type='submit'>Add task</button>:
                 <button className={`${styles.button} ${styles.buttonEdit}`} type='submit'>Edit task</button>}
-                <button className={styles.linkMainPage} onClick={()=>{history.push('/')}}>To main page</button>
 
+                <button className={styles.linkMainPage} onClick={(event:any)=>{event.preventDefault(); history.push('/');}}>To main page</button>               
             </form> 
         </>
     )
