@@ -1,10 +1,10 @@
 import React from 'react';
 import { Fragment } from 'react';
 import { Provider } from "react-redux";
-import { store } from "../servises/store/store";
+import { store } from "../store/store";
 import {useSelector} from 'react-redux'
-import {selectTaskList,selectTaskNames} from '../servises/store/reducers/taskListReducer'
-import {useSetListData} from '../servises/useSetListData';
+import {selectTaskList,selectTaskNames} from '../store/reducers/taskListReducer'
+import {useSetListData} from '../services/useSetListData';
 import { act } from "react-dom/test-utils";
 import { unmountComponentAtNode } from "react-dom";
 import ReactDOM from "react-dom";

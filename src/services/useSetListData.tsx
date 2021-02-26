@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react'
-import {setTaskList,setListOfCodeNames} from './store/reducers/taskListReducer'
+import {setTaskList,setListOfCodeNames} from '../store/reducers/taskListReducer'
 import {useDispatch} from 'react-redux'
 import {requestData} from './requestData'
 

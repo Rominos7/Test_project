@@ -2,9 +2,9 @@ import React,{useState,useEffect} from 'react'
 import styles from './cardsField.module.scss'
 import TaskCard from '../taskCadr/index'
 import {useSelector} from 'react-redux'
-import {selectTaskList} from '../../servises/store/reducers/taskListReducer'
+import {selectTaskList} from '../../store/reducers/taskListReducer'
 import {useHistory} from 'react-router-dom'
-import {useSetListData} from '../../servises/useSetListData';
+import {useSetListData} from '../../services/useSetListData';
 
 
 const CardsField:React.FC =()=>{

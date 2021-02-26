@@ -1,9 +1,9 @@
 import React,{Fragment,useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import styles from './addEditForm.module.scss'
-import {requestData} from '../../servises/requestData'
+import {requestData} from '../../services/requestData'
 import { useHistory, useLocation } from 'react-router-dom';
-import {selectTaskNames} from '../../servises/store/reducers/taskListReducer'
+import {selectTaskNames} from '../../store/reducers/taskListReducer'
 import {useSelector} from 'react-redux'
 
 const AddEditForm:React.FC =()=>{

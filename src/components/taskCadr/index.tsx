@@ -1,10 +1,10 @@
 import React,{Fragment, useEffect,useState} from 'react'
 import styles from './taskCard.module.scss'
-import {requestData} from '../../servises/requestData'
+import {requestData} from '../../services/requestData'
 import { useHistory } from 'react-router-dom';
 import {useSelector} from 'react-redux'
-import {selectTaskNames,selectTaskList} from '../../servises/store/reducers/taskListReducer'
-import {setTaskList,setListOfCodeNames} from '../../servises/store/reducers/taskListReducer'
+import {selectTaskNames,selectTaskList} from '../../store/reducers/taskListReducer'
+import {setTaskList,setListOfCodeNames} from '../../store/reducers/taskListReducer'
 import {useDispatch} from 'react-redux'
 
 type Props ={
