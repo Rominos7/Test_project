@@ -9,7 +9,8 @@ import {store} from '../store/store'
 
 jest.clearAllMocks();
 
-let container:any = null;
+let container:Element;
+
 const mockHistory = jest.fn();
 jest.mock("react-router-dom", () => ({
   useHistory: () => ({
@@ -45,7 +46,6 @@ beforeEach(() => {
 afterEach(() => {
   unmountComponentAtNode(container);
   container.remove();
-  container = null;
 });
 
 

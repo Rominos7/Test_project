@@ -7,7 +7,7 @@ import {Provider} from 'react-redux'
 import {store} from '../store/store'
 import CardsField from '../components/cardsField/index'
 
-let container:any = null;
+let container:Element;
 
 jest.clearAllMocks();
 
@@ -36,7 +36,6 @@ beforeEach(() => {
 afterEach(() => {
   unmountComponentAtNode(container);
   container.remove();
-  container = null;
 });
 
 it('testing Cards Field',()=>{
@@ -49,10 +48,9 @@ it('testing Cards Field',()=>{
         ); 
     });
 
-    let addNewTaskButton = container.querySelector('div button');
+    let addNewTaskButton = container.querySelector('button');
 
     //pressing button to add task
-    fireEvent.click(addNewTaskButton);
+    fireEvent.click(addNewTaskButton as Element);
     expect(mockHistory).toHaveBeenCalledWith('/form');
-
 })

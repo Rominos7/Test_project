@@ -39,7 +39,7 @@ describe('useSetList Hook',()=>{
     };
 
 
-    let container:any= null;
+    let container:Element;
 
     beforeEach(() => {
     container = document.createElement("div");
@@ -49,7 +49,7 @@ describe('useSetList Hook',()=>{
     afterEach(() => {
     unmountComponentAtNode(container);
     container.remove();
-    container = null;
+    //container = null;
     });
 
     test('hook used successfuly', async () => {

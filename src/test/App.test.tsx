@@ -7,7 +7,7 @@ import {Provider} from 'react-redux'
 import {store} from '../store/store'
 import App from '../App'
 
-let container:any = null;
+let container:Element;
 
 
 beforeEach(() => {
@@ -18,7 +18,6 @@ beforeEach(() => {
 afterEach(() => {
   unmountComponentAtNode(container);
   container.remove();
-  container = null;
 });
 
 it('testing App.tsx (if it successfuly renders)',()=>{

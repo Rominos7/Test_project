@@ -7,7 +7,7 @@ import {Provider} from 'react-redux'
 import {store} from '../store/store'
 import TaskCard from '../components/taskCadr/index'
 
-let container:any = null;
+let container:Element;
 
 jest.clearAllMocks();
 
@@ -36,7 +36,7 @@ beforeEach(() => {
 afterEach(() => {
   unmountComponentAtNode(container);
   container.remove();
-  container = null;
+  //container = null;
 });
 
 it('testing Task Card',()=>{
