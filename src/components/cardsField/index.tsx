@@ -9,6 +9,14 @@ import {useSetListData} from '../../services/useSetListData';
 
 const CardsField:React.FC =()=>{
 
+    interface cardItem{
+            id:string,
+            startDate:string,
+            endDate:string,
+            task:string,
+            status:string,    
+    }
+
     const [task,setTaks] = useState([{
         id:'',
         startDate:'0',
@@ -28,7 +36,7 @@ const CardsField:React.FC =()=>{
      return setTaks(taskList);
     })
     
-    const showCards=task.map((item:any,index:number)=>{
+    const showCards=task.map((item:cardItem,index:number)=>{
         return(
             <TaskCard
                key={index}

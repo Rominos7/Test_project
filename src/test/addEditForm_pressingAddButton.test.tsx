@@ -9,7 +9,7 @@ import {store} from '../store/store'
 
 jest.clearAllMocks();
 
-let container:any = null;
+let container:Element;
 
 //mock for history and location hooks
 const mockHistory = jest.fn();
@@ -29,7 +29,6 @@ const mockFetchPromise = Promise.resolve({
 });
 global.fetch = jest.fn().mockImplementation(() => mockFetchPromise);
 
-
 beforeEach(() => {
   container = document.createElement("div");
   document.body.appendChild(container); 
@@ -38,7 +37,7 @@ beforeEach(() => {
 afterEach(() => {
   unmountComponentAtNode(container);
   container.remove();
-  container = null;
+  //container = null;
 });
 
 

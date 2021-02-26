@@ -19,6 +19,11 @@ type Props ={
 
 const TaskCard:React.FC<Props> =({id,numOfElement,startDate,endDate,task,status})=>{
 
+    interface responce<T extends object>{
+        statusCode:number,
+        data:T,
+    }
+
     const history = useHistory();
     const dispatch = useDispatch();
     
@@ -37,7 +42,7 @@ const TaskCard:React.FC<Props> =({id,numOfElement,startDate,endDate,task,status}
     const updateData=()=>{
         let URL='https://test-db-task-list-default-rtdb.firebaseio.com/taskList.json';
             requestData(URL,'GET')
-            .then((res:any)=>{
+            .then((res:responce<object>)=>{
                 dispatch(setTaskList(Object.values(res.data)));
                 dispatch(setListOfCodeNames(Object.keys(res.data)));
             })
@@ -57,7 +62,7 @@ const TaskCard:React.FC<Props> =({id,numOfElement,startDate,endDate,task,status}
     const onDelete = () =>{
         let URL=`https://test-db-task-list-default-rtdb.firebaseio.com/taskList/${listOfCodeNames[numOfElement]}.json?x-http-method-override=DELETE`;
         requestData(URL,'DELETE')
-        .then((res:any)=>{
+        .then((res:responce<object>)=>{
             updateData(); 
         })      
         .catch((err)=>{console.log(err)})

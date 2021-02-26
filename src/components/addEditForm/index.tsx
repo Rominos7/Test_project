@@ -5,17 +5,34 @@ import {requestData} from '../../services/requestData'
 import { useHistory, useLocation } from 'react-router-dom';
 import {selectTaskNames} from '../../store/reducers/taskListReducer'
 import {useSelector} from 'react-redux'
+import { TargetElement } from '@testing-library/user-event';
 
 const AddEditForm:React.FC =()=>{
+ 
+    interface locationState{
+           chosenTask:{
+                id:string,
+                startDate:string,
+                endDate:string,
+                task:string,
+                status:string,
+           },
+           chosenNunOfElement:number, 
+    }
+
+    interface responce<T extends object>{
+        statusCode:number,
+        data:T,
+    }
 
     const history = useHistory();
-    const location:any = useLocation();
+    const location = useLocation<locationState>();
     const listOfCodeNames = useSelector(selectTaskNames);
 
 
     const changeColor =()=>{
         let selectors = document.querySelector<HTMLSelectElement>(`.${styles.statusSelect}`);
-        let circle:any = document.querySelector(`.${styles.statusMark}`);
+        let circle = document.querySelector<HTMLDivElement>(`.${styles.statusMark}`) as HTMLDivElement;
         if(selectors?.value==='Active'){
             circle.style.backgroundColor = 'red';  
         }else if(selectors?.value==='Pending'){
@@ -27,7 +44,7 @@ const AddEditForm:React.FC =()=>{
         }
     }
  
-    const sendNewTask=(event:any)=>{
+    const sendNewTask=(event:React.FormEvent)=>{
         
         event.preventDefault();
         //collection data from form;
@@ -68,7 +85,7 @@ const AddEditForm:React.FC =()=>{
             task:task?.value,
             status:status?.value,
         })
-        .then((res:any)=>{
+        .then((res:responce<object>)=>{
             history.push({
                 pathname:'/',
             })
@@ -91,8 +108,7 @@ const AddEditForm:React.FC =()=>{
         taskPlaceholder.startDate= startDate;
         taskPlaceholder.endDate = endDate;
         taskPlaceholder.task = task;
-        taskPlaceholder.status = status;
-                
+        taskPlaceholder.status = status;            
     }
 
     useEffect(()=>{
@@ -149,7 +165,7 @@ const AddEditForm:React.FC =()=>{
                 <button className={`${styles.button} ${styles.buttonAdd}`} type='submit'>Add task</button>:
                 <button className={`${styles.button} ${styles.buttonEdit}`} type='submit'>Edit task</button>}
 
-                <button className={styles.linkMainPage} onClick={(event:any)=>{event.preventDefault(); history.push('/');}}>To main page</button>               
+                <button className={styles.linkMainPage} onClick={(event:React.FormEvent)=>{event.preventDefault(); history.push('/');}}>To main page</button>               
             </form> 
         </>
     )
