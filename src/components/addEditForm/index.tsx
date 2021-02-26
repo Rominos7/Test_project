@@ -1,4 +1,4 @@
-import React,{Fragment,useEffect} from 'react';
+import React,{FormEvent, Fragment,useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import styles from './addEditForm.module.scss'
 import {requestData} from '../../services/requestData'
@@ -47,16 +47,9 @@ const AddEditForm:React.FC =()=>{
     const sendNewTask=(event:React.FormEvent)=>{
         
         event.preventDefault();
-        //collection data from form;
-        let idField = document.querySelector<HTMLInputElement>(`#${styles.idField}`);
-        let status = document.querySelector<HTMLSelectElement>(`.${styles.statusSelect}`);
-        let task = document.querySelector<HTMLInputElement>(`#${styles.taskField}`);
-        let startDate = document.querySelector<HTMLInputElement>(`#${styles.startDateField}`);
-        let endDate = document.querySelector<HTMLInputElement>(`#${styles.endDateField}`);
-        
         //validation check
-        let startDateConverted = new Date((startDate?.value as string).toString());
-        let endDateConverted = new Date((endDate?.value as string).toString());
+        let startDateConverted = new Date(startDate.toString());
+        let endDateConverted = new Date(endDate.toString());
         
         let statDateTime = startDateConverted.getTime();
         let endDateTime = endDateConverted.getTime();
@@ -79,11 +72,11 @@ const AddEditForm:React.FC =()=>{
         }
 
         requestData(URL,method,{
-            id:idField?.value,
-            startDate:startDate?.value,
-            endDate:endDate?.value,
-            task:task?.value,
-            status:status?.value,
+            id:idField,
+            startDate:startDate,
+            endDate:endDate,
+            task:task,
+            status:status,
         })
         .then((res:responce<object>)=>{
             history.push({
@@ -111,6 +104,39 @@ const AddEditForm:React.FC =()=>{
         taskPlaceholder.status = status;            
     }
 
+    const [idField,setIdField] = useState(taskPlaceholder.id);
+    const [status,setStatus] = useState(taskPlaceholder.status);
+    const [task,setTask] = useState(taskPlaceholder.task);
+    const [startDate,setStartDate] = useState(taskPlaceholder.startDate);
+    const [endDate,setEndDate] = useState(taskPlaceholder.endDate);
+    
+    const handleChangeInput=(event:React.FormEvent<HTMLInputElement>)=>{
+        //event.preventDefault();
+       switch(event.currentTarget.id){
+           case styles.idField:{
+                setIdField(event.currentTarget.value);
+                break;    
+           }
+           case styles.taskField:{
+                setTask(event.currentTarget.value);
+                break;
+           }
+           case styles.startDateField:{
+                setStartDate(event.currentTarget.value)
+                break;
+           }
+           case styles.endDateField:{
+                setEndDate(event.currentTarget.value)
+                break;
+           }
+       }
+    }
+
+    const handleChangeSelect=(event:React.FormEvent<HTMLSelectElement>)=>{
+        changeColor();
+        setStatus(event.currentTarget.value);
+    }
+    
     useEffect(()=>{
         changeColor(); 
     },[])
@@ -121,19 +147,14 @@ const AddEditForm:React.FC =()=>{
                 <section className={styles.upperSection}>
                     <div className={styles.idSection}>
                         <label htmlFor={`${styles.idField}`}>ID of task</label>
-
-                        {location.state===undefined?
-                        <input placeholder ='endter task id' id={styles.idField} type={'text'}></input>:
-                        <input id={styles.idField} defaultValue={taskPlaceholder.id} type={'text'}></input>
-                        }
-
+                        <input placeholder ='endter task id' id={styles.idField} type={'text'} value={idField} onChange={handleChangeInput}></input>
                     </div>
                     <div className={styles.statusField}>
                         <div className={styles.statusIndicator}>
                             <label htmlFor={`statusCheck`}>Status</label>
                             <div className={styles.statusMark}></div>
                         </div> 
-                        <select name='statusCheck' defaultValue={taskPlaceholder.status} className={styles.statusSelect} onChange={()=>{changeColor()}}>
+                        <select name='statusCheck' value={status} className={styles.statusSelect} onChange={handleChangeSelect}>
                                 <option value='Active'>Active</option>
                                 <option value='Pending'>Pending</option>
                                 <option value='On hold'>On hold</option>
@@ -144,20 +165,17 @@ const AddEditForm:React.FC =()=>{
                 <section className={styles.middleSection}>
                     <div>
                         <label htmlFor={`${styles.taskField}`}>Task</label>
-
-                        {location.state===undefined?
-                        <input placeholder='enter task name' id={styles.taskField} type={'text'} ></input>:
-                        <input id={styles.taskField} type={'text'} defaultValue={taskPlaceholder.task}></input>}
+                        <input placeholder='enter task name' id={styles.taskField} type={'text'} value={task} onChange={handleChangeInput}></input>
                     </div>
                 </section>
                 <section className={styles.lowerSection}>
                     <div className={styles.startDate}>
                         <label htmlFor={`${styles.startDateField}`}>Start date</label>
-                        <input type={'date'} id={styles.startDateField} defaultValue={taskPlaceholder.startDate}></input>
+                        <input type={'date'} id={styles.startDateField} value={startDate} onChange={handleChangeInput}></input>
                     </div>
                     <div className={styles.endDate}>
                         <label htmlFor={`${styles.endDateField}`}>End date</label>
-                        <input type={'date'} id={styles.endDateField} defaultValue={taskPlaceholder.endDate}></input>
+                        <input type={'date'} id={styles.endDateField} value={endDate} onChange={handleChangeInput}></input>
                     </div>
                 </section>
                         
