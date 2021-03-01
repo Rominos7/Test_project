@@ -39,7 +39,7 @@ afterEach(() => {
   //container = null;
 });
 
-it('testing Task Card',()=>{
+it('testing Task Card, pressing Edit and Delete buttons',()=>{
     act(() => {
         ReactDOM.render(
                 <Provider store={store}>
@@ -99,7 +99,7 @@ it('testing Task Card',()=>{
                 task:'Have been done',
                 status:'Solved',
             },
-            chosenNunOfElement:0, 
+            chosenNumOfElement:0, 
         }
     });
 

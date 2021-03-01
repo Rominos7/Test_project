@@ -51,7 +51,7 @@ afterEach(() => {
 
 describe('check if component is rendering succsesfully and we can Edit taskCard',()=>{
   
-    it("Render and pressing Edit button", async () => {  
+    it("Rendering component and pressing Edit button, expecting to call fetch with PUT method", async () => {  
     await act( async() => {
       ReactDOM.render(
               <Provider store={store}>
