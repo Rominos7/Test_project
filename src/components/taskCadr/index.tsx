@@ -40,7 +40,7 @@ const TaskCard:React.FC<Props> =({id,numOfElement,startDate,endDate,task,status}
             pathname:'/form',
             state: {
                 chosenTask:taskList[numOfElement],
-                chosenNunOfElement:numOfElement,
+                chosenNumOfElement:numOfElement,
             },
         })
     }

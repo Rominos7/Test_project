@@ -20,7 +20,7 @@ const AddEditForm:React.FC =()=>{
                 task:string,
                 status:string,
            },
-           chosenNunOfElement:number, 
+           chosenNumOfElement:number, 
     }
 
     //set up hooks
@@ -138,7 +138,7 @@ const AddEditForm:React.FC =()=>{
                 break;
             }
             default:{
-                const index = location.state.chosenNunOfElement;
+                const index = location.state.chosenNumOfElement;
                 method = 'PUT';
                 URL=`https://test-db-task-list-default-rtdb.firebaseio.com/taskList/${listOfCodeNames[index]}.json?x-http-method-override=PUT`; 
             }
