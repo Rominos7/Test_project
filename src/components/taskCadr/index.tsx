@@ -6,6 +6,7 @@ import {useSelector} from 'react-redux'
 import {selectTaskNames,selectTaskList} from '../../store/reducers/taskListReducer'
 import {setTaskList,setListOfCodeNames} from '../../store/reducers/taskListReducer'
 import {useDispatch} from 'react-redux'
+import {updateData,deleteCardData} from '../../services/requestDataFunctions'
 
 type Props ={
     id:string,
@@ -18,11 +19,6 @@ type Props ={
 
 
 const TaskCard:React.FC<Props> =({id,numOfElement,startDate,endDate,task,status})=>{
-
-    interface responce<T extends object>{
-        statusCode:number,
-        data:T,
-    }
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -39,16 +35,6 @@ const TaskCard:React.FC<Props> =({id,numOfElement,startDate,endDate,task,status}
         return diffInDays; 
     }
 
-    const updateData=()=>{
-        let URL='https://test-db-task-list-default-rtdb.firebaseio.com/taskList.json';
-            requestData(URL,'GET')
-            .then((res:responce<object>)=>{
-                dispatch(setTaskList(Object.values(res.data)));
-                dispatch(setListOfCodeNames(Object.keys(res.data)));
-            })
-            .catch((err)=>{console.log(err)}) 
-    }
-
     const onEdit = ()=>{
         history.push({
             pathname:'/form',
@@ -59,26 +45,45 @@ const TaskCard:React.FC<Props> =({id,numOfElement,startDate,endDate,task,status}
         })
     }
 
-    const onDelete = () =>{
-        let URL=`https://test-db-task-list-default-rtdb.firebaseio.com/taskList/${listOfCodeNames[numOfElement]}.json?x-http-method-override=DELETE`;
-        requestData(URL,'DELETE')
-        .then((res:responce<object>)=>{
-            updateData(); 
-        })      
-        .catch((err)=>{console.log(err)})
+    const onDelete = async () =>{                
+        const requestDelete = await deleteCardData(listOfCodeNames[numOfElement]) // send request to delete selected card
+
+       switch(requestDelete.statusCode){
+           case(200):{ // if operation was successful then update data 
+                const requestUpdate = await updateData(); // request data for update
+                dispatch(setTaskList(Object.values(requestUpdate.data)));
+                dispatch(setListOfCodeNames(Object.keys(requestUpdate.data)));
+                console.log(requestUpdate);
+                break;
+           }
+           default:{ // if we could not delete card then print warning messeage
+                alert('Could not delete selected card'); 
+                console.log('Could not delete selected card');
+           }
+       }       
     }
         
     const changeColor =()=>{
         let status = document.querySelectorAll<HTMLParagraphElement>(`.${styles.statusSelect}`);
         let circle = document.querySelectorAll<HTMLDivElement>(`.${styles.statusMark}`);
-        if(status[numOfElement].innerHTML==='Active'){
-            circle[numOfElement].style.backgroundColor = 'red';  
-        }else if(status[numOfElement].innerHTML==='Pending'){
-            circle[numOfElement].style.backgroundColor = 'yellow';
-        }else if(status[numOfElement].innerHTML==='On hold'){
-            circle[numOfElement].style.backgroundColor = 'orange';
-        }else if(status[numOfElement].innerHTML==='Solved'){
-            circle[numOfElement].style.backgroundColor = 'green';
+        
+        switch(status[numOfElement].innerHTML){
+            case('Active'):{
+                circle[numOfElement].style.backgroundColor = 'red'; 
+                break;
+            }
+            case('Pending'):{
+                circle[numOfElement].style.backgroundColor = 'yellow';
+                break;
+            }
+            case('On hold'):{
+                circle[numOfElement].style.backgroundColor = 'orange';
+                break;
+            }
+            case('Solved'):{
+                circle[numOfElement].style.backgroundColor = 'green';
+                break;
+            }
         }
     }
     

@@ -28,9 +28,9 @@ const CardsField:React.FC =()=>{
 
     const history = useHistory();
 
-    useSetListData();
+    useSetListData(); // custom hook for requesting data and updating component with useEffect
     
-    const taskList = useSelector(selectTaskList);
+    const taskList = useSelector(selectTaskList); // using state from redux for filing info about cards
 
     useEffect(()=>{
      return setTaks(taskList);
