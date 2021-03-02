@@ -4,9 +4,9 @@ This is test project based on task to implement task manager with simple functio
 2) Be able to create new task, edit already existed task or delete task
 
 Task card(as a unit) is consisted of:
-1) Taks id
+1) Task id
 2) Status(active/pending/on hold/solved)
-3) Taks name
+3) Task name
 4) Day(s) left to finish current task
 5) Start date
 6) End date
