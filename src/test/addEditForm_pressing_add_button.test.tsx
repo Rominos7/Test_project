@@ -40,9 +40,10 @@ afterEach(() => {
 });
 
 
-describe('check if component is rendering succsesfully and we can Add taskCard',()=>{
+describe('check if component is rendering succsesfully and we can Add taskCard', ()=>{
   
   it("Rendering component and pressing Add button, expecting to call fetch with POST method", async () => {
+    
     await act( async() => {
       ReactDOM.render(
               <Provider store={store}>
@@ -55,7 +56,7 @@ describe('check if component is rendering succsesfully and we can Add taskCard',
     let buttons = container.querySelectorAll('button');
     let toMainPage = buttons[1];
     let toAdd = buttons[0];
-    
+  
     //click on button to main page
     fireEvent.click(toMainPage);
     expect(mockHistory).toHaveBeenCalledWith('/');

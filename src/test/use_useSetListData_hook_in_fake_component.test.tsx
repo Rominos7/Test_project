@@ -17,7 +17,8 @@ const mockFetchPromise = Promise.resolve({
 });
 global.fetch = jest.fn().mockImplementation(() => mockFetchPromise);
 
-describe('useSetList Hook',()=>{
+describe('Testing useSetList hook ',()=>{
+    //make fake component so we can use our component for further testing 
     const TestComponent:React.FC = ()=>{
 
         useSetListData();
@@ -52,7 +53,7 @@ describe('useSetList Hook',()=>{
     //container = null;
     });
 
-    test('hook used successfuly', async () => {
+    test('Rendering our fake component, see if our hook used successfuly', async () => {
         await act( async () => {
             ReactDOM.render(
                 <Provider store={store}>

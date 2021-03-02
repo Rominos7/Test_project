@@ -38,7 +38,7 @@ afterEach(() => {
   container.remove();
 });
 
-it('testing Cards Field',()=>{
+it('Rendering component and pressing Add button, expecting redirection to form page',()=>{
     act(() => {
         ReactDOM.render(
                 <Provider store={store}>

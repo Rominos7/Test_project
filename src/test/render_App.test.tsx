@@ -20,7 +20,7 @@ afterEach(() => {
   container.remove();
 });
 
-it('testing App.tsx (if it successfuly renders)',()=>{
+it('Rendering App component',()=>{
     act(() => {
         ReactDOM.render(
                 <Provider store={store}>
