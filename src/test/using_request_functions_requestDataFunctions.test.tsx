@@ -17,8 +17,8 @@ global.fetch = jest.fn().mockImplementation(() => mockFetchPromise);
 
 it('using updateData function',async()=>{
     
-    const request = /*await*/updateData();
-    expect(global.fetch).toHaveBeenCalledWith('https://test-db-task-list-default-rtdb.firebaseio.com/taskList.json',{
+    const request = /*await*/updateData('URL');
+    expect(global.fetch).toHaveBeenCalledWith('URL',{
         body:undefined,
         headers:{'Content-Type':'application/json'},
         method:'GET'
@@ -48,8 +48,8 @@ it('using addEditCardDate function',async()=>{
 })
 
 it('using deleteCardData function',async()=>{
-    const request = /*await*/deleteCardData('element');
-    expect(global.fetch).toHaveBeenCalledWith('https://test-db-task-list-default-rtdb.firebaseio.com/taskList/element.json?x-http-method-override=DELETE',{
+    const request = /*await*/deleteCardData('URL');
+    expect(global.fetch).toHaveBeenCalledWith('URL',{
         body:undefined,
         headers:{'Content-Type':'application/json'},
         method:'DELETE'

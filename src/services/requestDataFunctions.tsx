@@ -8,14 +8,12 @@ interface addEdidtData{
     status:string,
 }
 
-export const updateData =  ()=>{   
-    let URL='https://test-db-task-list-default-rtdb.firebaseio.com/taskList.json';
+export const updateData =  (URL:string)=>{   
     const response = requestData(URL,'GET')
     return response;
 }
 
-export const deleteCardData = (nameOfElement:string) =>{   
-    let URL=`https://test-db-task-list-default-rtdb.firebaseio.com/taskList/${nameOfElement}.json?x-http-method-override=DELETE`;
+export const deleteCardData = (URL:string) =>{   
     const response = requestData(URL,'DELETE')
     return response;
 }

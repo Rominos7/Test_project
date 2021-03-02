@@ -46,11 +46,14 @@ const TaskCard:React.FC<Props> =({id,numOfElement,startDate,endDate,task,status}
     }
 
     const onDelete = async () =>{                
-        const requestDelete = await deleteCardData(listOfCodeNames[numOfElement]) // send request to delete selected card
+        
+        let URL=`https://test-db-task-list-default-rtdb.firebaseio.com/taskList/${listOfCodeNames[numOfElement]}.json?x-http-method-override=DELETE`;
+        const requestDelete = await deleteCardData(URL) // send request to delete selected card
 
-       switch(requestDelete.statusCode){
+        switch(requestDelete.statusCode){
            case(200):{ // if operation was successful then update data 
-                const requestUpdate = await updateData(); // request data for update
+                let URL='https://test-db-task-list-default-rtdb.firebaseio.com/taskList.json';
+                const requestUpdate = await updateData(URL); // request data for update
                 dispatch(setTaskList(Object.values(requestUpdate.data)));
                 dispatch(setListOfCodeNames(Object.keys(requestUpdate.data)));
                 console.log(requestUpdate);
