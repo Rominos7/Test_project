@@ -19,7 +19,7 @@ type Props ={
 
 
 const TaskCard:React.FC<Props> =({id,numOfElement,startDate,endDate,task,status})=>{
-
+    const testComponetdeleteMeAfter;
     const history = useHistory();
     const dispatch = useDispatch();
     
