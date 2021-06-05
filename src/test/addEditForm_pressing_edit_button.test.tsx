@@ -5,11 +5,12 @@ import { act } from "react-dom/test-utils";
 import ReactDOM from "react-dom";
 import AddEditForm from '../components/addEditForm'
 import {Provider} from 'react-redux'
-import {store} from '../servises/store/store'
+import {store} from '../store/store'
 
 jest.clearAllMocks();
 
-let container:any = null;
+let container:Element;
+
 const mockHistory = jest.fn();
 jest.mock("react-router-dom", () => ({
   useHistory: () => ({
@@ -45,13 +46,12 @@ beforeEach(() => {
 afterEach(() => {
   unmountComponentAtNode(container);
   container.remove();
-  container = null;
 });
 
 
 describe('check if component is rendering succsesfully and we can Edit taskCard',()=>{
   
-    it("Render and pressing Edit button", async () => {  
+    it("Rendering component and pressing Edit button, expecting to call fetch with PUT method", async () => {  
     await act( async() => {
       ReactDOM.render(
               <Provider store={store}>

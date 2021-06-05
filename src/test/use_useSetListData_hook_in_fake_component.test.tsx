@@ -1,10 +1,10 @@
 import React from 'react';
 import { Fragment } from 'react';
 import { Provider } from "react-redux";
-import { store } from "../servises/store/store";
+import { store } from "../store/store";
 import {useSelector} from 'react-redux'
-import {selectTaskList,selectTaskNames} from '../servises/store/reducers/taskListReducer'
-import {useSetListData} from '../servises/useSetListData';
+import {selectTaskList,selectTaskNames} from '../store/reducers/taskListReducer'
+import {useSetListData} from '../services/useSetListData';
 import { act } from "react-dom/test-utils";
 import { unmountComponentAtNode } from "react-dom";
 import ReactDOM from "react-dom";
@@ -17,7 +17,8 @@ const mockFetchPromise = Promise.resolve({
 });
 global.fetch = jest.fn().mockImplementation(() => mockFetchPromise);
 
-describe('useSetList Hook',()=>{
+describe('Testing useSetList hook ',()=>{
+    //make fake component so we can use our component for further testing 
     const TestComponent:React.FC = ()=>{
 
         useSetListData();
@@ -39,7 +40,7 @@ describe('useSetList Hook',()=>{
     };
 
 
-    let container:any= null;
+    let container:Element;
 
     beforeEach(() => {
     container = document.createElement("div");
@@ -49,10 +50,10 @@ describe('useSetList Hook',()=>{
     afterEach(() => {
     unmountComponentAtNode(container);
     container.remove();
-    container = null;
+    //container = null;
     });
 
-    test('hook used successfuly', async () => {
+    test('Rendering our fake component, see if our hook used successfuly', async () => {
         await act( async () => {
             ReactDOM.render(
                 <Provider store={store}>

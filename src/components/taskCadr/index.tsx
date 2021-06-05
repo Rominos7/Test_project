@@ -1,11 +1,12 @@
 import React,{Fragment, useEffect,useState} from 'react'
 import styles from './taskCard.module.scss'
-import {requestData} from '../../servises/requestData'
+import {requestData} from '../../services/requestData'
 import { useHistory } from 'react-router-dom';
 import {useSelector} from 'react-redux'
-import {selectTaskNames,selectTaskList} from '../../servises/store/reducers/taskListReducer'
-import {setTaskList,setListOfCodeNames} from '../../servises/store/reducers/taskListReducer'
+import {selectTaskNames,selectTaskList} from '../../store/reducers/taskListReducer'
+import {setTaskList,setListOfCodeNames} from '../../store/reducers/taskListReducer'
 import {useDispatch} from 'react-redux'
+import {updateData,deleteCardData} from '../../services/requestDataFunctions'
 
 type Props ={
     id:string,
@@ -34,46 +35,58 @@ const TaskCard:React.FC<Props> =({id,numOfElement,startDate,endDate,task,status}
         return diffInDays; 
     }
 
-    const updateData=()=>{
-        let URL='https://test-db-task-list-default-rtdb.firebaseio.com/taskList.json';
-            requestData(URL,'GET')
-            .then((res:any)=>{
-                dispatch(setTaskList(Object.values(res.data)));
-                dispatch(setListOfCodeNames(Object.keys(res.data)));
-            })
-            .catch((err)=>{console.log(err)}) 
-    }
-
     const onEdit = ()=>{
         history.push({
             pathname:'/form',
             state: {
                 chosenTask:taskList[numOfElement],
-                chosenNunOfElement:numOfElement,
+                chosenNumOfElement:numOfElement,
             },
         })
     }
 
-    const onDelete = () =>{
+    const onDelete = async () =>{                
+        
         let URL=`https://test-db-task-list-default-rtdb.firebaseio.com/taskList/${listOfCodeNames[numOfElement]}.json?x-http-method-override=DELETE`;
-        requestData(URL,'DELETE')
-        .then((res:any)=>{
-            updateData(); 
-        })      
-        .catch((err)=>{console.log(err)})
+        const requestDelete = await deleteCardData(URL) // send request to delete selected card
+
+        switch(requestDelete.statusCode){
+           case(200):{ // if operation was successful then update data 
+                let URL='https://test-db-task-list-default-rtdb.firebaseio.com/taskList.json';
+                const requestUpdate = await updateData(URL); // request data for update
+                dispatch(setTaskList(Object.values(requestUpdate.data)));
+                dispatch(setListOfCodeNames(Object.keys(requestUpdate.data)));
+                console.log(requestUpdate);
+                break;
+           }
+           default:{ // if we could not delete card then print warning messeage
+                alert('Could not delete selected card'); 
+                console.log('Could not delete selected card');
+           }
+       }       
     }
         
     const changeColor =()=>{
         let status = document.querySelectorAll<HTMLParagraphElement>(`.${styles.statusSelect}`);
         let circle = document.querySelectorAll<HTMLDivElement>(`.${styles.statusMark}`);
-        if(status[numOfElement].innerHTML==='Active'){
-            circle[numOfElement].style.backgroundColor = 'red';  
-        }else if(status[numOfElement].innerHTML==='Pending'){
-            circle[numOfElement].style.backgroundColor = 'yellow';
-        }else if(status[numOfElement].innerHTML==='On hold'){
-            circle[numOfElement].style.backgroundColor = 'orange';
-        }else if(status[numOfElement].innerHTML==='Solved'){
-            circle[numOfElement].style.backgroundColor = 'green';
+        
+        switch(status[numOfElement].innerHTML){
+            case('Active'):{
+                circle[numOfElement].style.backgroundColor = 'red'; 
+                break;
+            }
+            case('Pending'):{
+                circle[numOfElement].style.backgroundColor = 'yellow';
+                break;
+            }
+            case('On hold'):{
+                circle[numOfElement].style.backgroundColor = 'orange';
+                break;
+            }
+            case('Solved'):{
+                circle[numOfElement].style.backgroundColor = 'green';
+                break;
+            }
         }
     }
     

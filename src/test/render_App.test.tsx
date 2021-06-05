@@ -4,10 +4,10 @@ import { fireEvent } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import ReactDOM from "react-dom";
 import {Provider} from 'react-redux'
-import {store} from '../servises/store/store'
+import {store} from '../store/store'
 import App from '../App'
 
-let container:any = null;
+let container:Element;
 
 
 beforeEach(() => {
@@ -18,10 +18,9 @@ beforeEach(() => {
 afterEach(() => {
   unmountComponentAtNode(container);
   container.remove();
-  container = null;
 });
 
-it('testing App.tsx (if it successfuly renders)',()=>{
+it('Rendering App component',()=>{
     act(() => {
         ReactDOM.render(
                 <Provider store={store}>

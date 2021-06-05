@@ -4,10 +4,10 @@ import { fireEvent } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import ReactDOM from "react-dom";
 import {Provider} from 'react-redux'
-import {store} from '../servises/store/store'
+import {store} from '../store/store'
 import TaskCard from '../components/taskCadr/index'
 
-let container:any = null;
+let container:Element;
 
 jest.clearAllMocks();
 
@@ -36,10 +36,10 @@ beforeEach(() => {
 afterEach(() => {
   unmountComponentAtNode(container);
   container.remove();
-  container = null;
+  //container = null;
 });
 
-it('testing Task Card',()=>{
+it('testing Task Card, pressing Edit and Delete buttons',()=>{
     act(() => {
         ReactDOM.render(
                 <Provider store={store}>
@@ -99,7 +99,7 @@ it('testing Task Card',()=>{
                 task:'Have been done',
                 status:'Solved',
             },
-            chosenNunOfElement:0, 
+            chosenNumOfElement:0, 
         }
     });
 

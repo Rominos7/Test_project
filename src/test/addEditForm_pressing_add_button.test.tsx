@@ -5,11 +5,11 @@ import { act } from "react-dom/test-utils";
 import ReactDOM from "react-dom";
 import AddEditForm from '../components/addEditForm'
 import {Provider} from 'react-redux'
-import {store} from '../servises/store/store'
+import {store} from '../store/store'
 
 jest.clearAllMocks();
 
-let container:any = null;
+let container:Element;
 
 //mock for history and location hooks
 const mockHistory = jest.fn();
@@ -29,7 +29,6 @@ const mockFetchPromise = Promise.resolve({
 });
 global.fetch = jest.fn().mockImplementation(() => mockFetchPromise);
 
-
 beforeEach(() => {
   container = document.createElement("div");
   document.body.appendChild(container); 
@@ -38,13 +37,13 @@ beforeEach(() => {
 afterEach(() => {
   unmountComponentAtNode(container);
   container.remove();
-  container = null;
 });
 
 
-describe('check if component is rendering succsesfully and we can Add taskCard',()=>{
+describe('check if component is rendering succsesfully and we can Add taskCard', ()=>{
   
-  it("Render and pressing Add button", async () => {
+  it("Rendering component and pressing Add button, expecting to call fetch with POST method", async () => {
+    
     await act( async() => {
       ReactDOM.render(
               <Provider store={store}>
@@ -57,7 +56,7 @@ describe('check if component is rendering succsesfully and we can Add taskCard',
     let buttons = container.querySelectorAll('button');
     let toMainPage = buttons[1];
     let toAdd = buttons[0];
-    
+  
     //click on button to main page
     fireEvent.click(toMainPage);
     expect(mockHistory).toHaveBeenCalledWith('/');

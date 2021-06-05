@@ -2,12 +2,20 @@ import React,{useState,useEffect} from 'react'
 import styles from './cardsField.module.scss'
 import TaskCard from '../taskCadr/index'
 import {useSelector} from 'react-redux'
-import {selectTaskList} from '../../servises/store/reducers/taskListReducer'
+import {selectTaskList} from '../../store/reducers/taskListReducer'
 import {useHistory} from 'react-router-dom'
-import {useSetListData} from '../../servises/useSetListData';
+import {useSetListData} from '../../services/useSetListData';
 
 
 const CardsField:React.FC =()=>{
+
+    interface cardItem{
+            id:string,
+            startDate:string,
+            endDate:string,
+            task:string,
+            status:string,    
+    }
 
     const [task,setTaks] = useState([{
         id:'',
@@ -20,15 +28,15 @@ const CardsField:React.FC =()=>{
 
     const history = useHistory();
 
-    useSetListData();
+    useSetListData(); // custom hook for requesting data and updating component with useEffect
     
-    const taskList = useSelector(selectTaskList);
+    const taskList = useSelector(selectTaskList); // using state from redux for filing info about cards
 
     useEffect(()=>{
      return setTaks(taskList);
     })
     
-    const showCards=task.map((item:any,index:number)=>{
+    const showCards=task.map((item:cardItem,index:number)=>{
         return(
             <TaskCard
                key={index}

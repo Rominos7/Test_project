@@ -4,10 +4,10 @@ import { fireEvent } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import ReactDOM from "react-dom";
 import {Provider} from 'react-redux'
-import {store} from '../servises/store/store'
+import {store} from '../store/store'
 import CardsField from '../components/cardsField/index'
 
-let container:any = null;
+let container:Element;
 
 jest.clearAllMocks();
 
@@ -36,10 +36,9 @@ beforeEach(() => {
 afterEach(() => {
   unmountComponentAtNode(container);
   container.remove();
-  container = null;
 });
 
-it('testing Cards Field',()=>{
+it('Rendering component and pressing Add button, expecting redirection to form page',()=>{
     act(() => {
         ReactDOM.render(
                 <Provider store={store}>
@@ -49,10 +48,9 @@ it('testing Cards Field',()=>{
         ); 
     });
 
-    let addNewTaskButton = container.querySelector('div button');
+    let addNewTaskButton = container.querySelector('button');
 
     //pressing button to add task
-    fireEvent.click(addNewTaskButton);
+    fireEvent.click(addNewTaskButton as Element);
     expect(mockHistory).toHaveBeenCalledWith('/form');
-
 })
